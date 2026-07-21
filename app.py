@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import pickle
+import joblib
 
 # ---------------------------------------------------------
 # Page Configuration & Styling
@@ -16,31 +16,28 @@ st.title("🍔 Food Delivery Duration Predictor")
 st.markdown("Predict the estimated delivery time for transactions based on various parameters.")
 
 # ---------------------------------------------------------
-# Robust File Loading using Try-Except Blocks
+# Robust File Loading using Joblib & Try-Except Blocks
 # ---------------------------------------------------------
 @st.cache_resource
 def load_artifacts():
     model, scaler, columns = None, None, None
     errors = []
 
-    # Try loading Model
+    # Try loading Model using joblib
     try:
-        with open('model.pkl', 'rb') as f:
-            model = pickle.load(f)
+        model = joblib.load('model.pkl')
     except Exception as e:
         errors.append(f"Model File (`model.pkl`) Error: {e}")
 
-    # Try loading Scaler
+    # Try loading Scaler using joblib
     try:
-        with open('scaler.pkl', 'rb') as f:
-            scaler = pickle.load(f)
+        scaler = joblib.load('scaler.pkl')
     except Exception as e:
         errors.append(f"Scaler File (`scaler.pkl`) Error: {e}")
 
-    # Try loading Column list
+    # Try loading Column list using joblib
     try:
-        with open('column.pkl', 'rb') as f:
-            columns = pickle.load(f)
+        columns = joblib.load('columns.pkl')
     except Exception as e:
         errors.append(f"Columns File (`column.pkl`) Error: {e}")
 
