@@ -37,9 +37,21 @@ def load_artifacts():
 
     # Try loading Column list using joblib
     try:
-        columns = joblib.load('columns.pkl')
+        try:
+            raw_cols = joblib.load('columns.pkl')
+        except FileNotFoundError:
+            raw_cols = joblib.load('column.pkl')
+
+        # Clean type conversion
+        if callable(raw_cols):
+            columns = list(raw_cols())
+        elif hasattr(raw_cols, 'tolist') and callable(getattr(raw_cols, 'tolist')):
+            columns = raw_cols.tolist()
+        else:
+            columns = list(raw_cols)
+
     except Exception as e:
-        errors.append(f"Columns File (`column.pkl`) Error: {e}")
+        errors.append(f"Columns File Error: {e}")
 
     return model, scaler, columns, errors
 
@@ -105,8 +117,10 @@ if st.button("🚀 Predict Actual Delivery Duration", use_container_width=True):
         st.error("❌ Prediction unavailable! Please verify all `.pkl` files exist in your repository.")
     else:
         try:
+            cols = list(feature_columns)
+
             # 1. Initialize empty row with 0s matching training features
-            input_dict = {col: 0 for col in feature_columns}
+            input_dict = {col: 0 for col in cols}
 
             # 2. Assign Numerical Features
             input_dict['restaurant_rating'] = restaurant_rating
@@ -142,11 +156,26 @@ if st.button("🚀 Predict Actual Delivery Duration", use_container_width=True):
                 input_dict[city_col] = 1
 
             # 4. Convert to DataFrame in exact feature order
-            input_df = pd.DataFrame([input_dict])[feature_columns]
+            input_df = pd.DataFrame([input_dict])[cols]
 
-            # 5. Apply Scaler & Model Prediction
-            scaled_input = scaler.transform(input_df)
-            prediction = model.predict(scaled_input)[0]
+            # 5. Smart Scaler Application
+            # Check features expected by Scaler
+            if hasattr(scaler, 'feature_names_in_'):
+                scaler_features = scaler.feature_names_in_
+                
+                # Transform only features present during scaler fit
+                input_df_to_scale = input_df[scaler_features]
+                scaled_parts = scaler.transform(input_df_to_scale)
+                
+                # Replace scaled values back into input_df
+                input_df[scaler_features] = scaled_parts
+                final_input = input_df
+            else:
+                # Fallback if scaler fitted on entire X
+                final_input = scaler.transform(input_df)
+
+            # 6. Model Prediction
+            prediction = model.predict(final_input)[0]
 
             # Display Result
             st.success(f"⏱️ **Estimated Actual Delivery Duration:** `{prediction:.2f} minutes`")
