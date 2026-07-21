@@ -55,31 +55,31 @@ if loading_errors:
     st.info("💡 You can still adjust inputs below. Fix missing files to enable live predictions.")
 
 # ---------------------------------------------------------
-# User Input Interface
+# User Input Interface (Smart Mix of Sliders & Number Inputs)
 # ---------------------------------------------------------
 st.header("📋 Enter Transaction Details")
 
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    restaurant_rating = st.slider("Restaurant Rating", 1.0, 5.0, 4.2, 0.1)
-    prep_time = st.number_input("Avg Prep Time (mins)", min_value=1.0, max_value=120.0, value=20.0)
-    item_price = st.number_input("Item Price ($)", min_value=0.0, value=15.0)
-    quantity = st.number_input("Quantity", min_value=1, value=2)
-    order_timestamp = st.number_input("Order Timestamp (Epoch/Numeric)", min_value=0.0, value=1700000000.0)
+    restaurant_rating = st.number_input("Restaurant Rating", min_value=1.0, max_value=5.0, value=4.2, step=0.1)
+    quantity = st.number_input("Quantity", min_value=1, max_value=20, value=2, step=1)
+    prep_time = st.number_input("Avg Prep Time (mins)", min_value=1.0, max_value=120.0, value=20.0, step=1.0)
+    order_timestamp = st.slider("Order Hour (0-23)", 0, 23, 12)
 
 with col2:
-    est_duration = st.number_input("Delivery Duration Estimated (mins)", min_value=1.0, value=30.0)
-    delivery_fee = st.number_input("Delivery Fee ($)", min_value=0.0, value=3.5)
-    tip = st.number_input("Tip ($)", min_value=0.0, value=2.0)
-    total_amount = st.number_input("Total Amount ($)", min_value=0.0, value=35.5)
-    discount_value = st.number_input("Discount Value ($)", min_value=0.0, value=5.0)
+    item_price = st.slider("Item Price ($)", 1.0, 200.0, 15.0, 0.5)
+    total_amount = st.slider("Total Amount ($)", 5.0, 500.0, 35.5, 1.0)
+    discount_value = st.slider("Discount Value ($)", 0.0, 100.0, 5.0, 0.5)
+    delivery_fee = st.slider("Delivery Fee ($)", 0.0, 30.0, 3.5, 0.5)
+    tip = st.slider("Tip ($)", 0.0, 50.0, 2.0, 0.5)
 
 with col3:
-    temp = st.number_input("Weather Temperature (°C)", value=25.0)
-    precip = st.number_input("Weather Precipitation (mm)", value=0.0)
-    is_weekend = st.selectbox("Is Weekend?", [0, 1])
-    is_holiday = st.selectbox("Is Holiday?", [0, 1])
+    est_duration = st.slider("Delivery Duration Estimated (mins)", 5, 180, 30)
+    temp = st.number_input("Weather Temperature (°C)", min_value=-10.0, max_value=50.0, value=25.0, step=0.5)
+    precip = st.number_input("Weather Precipitation (mm)", min_value=0.0, max_value=50.0, value=0.0, step=0.1)
+    is_weekend = st.selectbox("Is Weekend?", options=[0, 1])
+    is_holiday = st.selectbox("Is Holiday?", options=[0, 1])
 
 st.markdown("---")
 st.subheader("Categorical Details")
@@ -127,7 +127,7 @@ if st.button("🚀 Predict Actual Delivery Duration", use_container_width=True):
             input_dict['is_weekend'] = is_weekend
             input_dict['is_holiday'] = is_holiday
 
-            # 3. Handle One-Hot Encoded Categories (if column exists, set to 1)
+            # 3. Handle One-Hot Encoded Categories
             tier_col = f"customer_loyalty_tier_{loyalty_tier}"
             if tier_col in input_dict:
                 input_dict[tier_col] = 1
