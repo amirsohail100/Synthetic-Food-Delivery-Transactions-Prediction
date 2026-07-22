@@ -6,7 +6,7 @@ An end-to-end Machine Learning project analyzing synthetic food delivery transac
 
 ## 🖥️ Streamlit Application UI
 
-![Streamlit Application UI](images/streamlit_ui.png)
+![Streamlit Application UI](UI.png)
 _Figure: Interactive Streamlit Web Application for Real-Time Transaction Rank Prediction._
 
 ---
