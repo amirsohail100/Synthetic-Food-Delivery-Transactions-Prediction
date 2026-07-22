@@ -53,11 +53,51 @@ _Evaluated algorithms include Gradient Boosting Regressor, AdaBoost Regressor, R
 
 ### 1. Clone the Repository
 
+````
+
+## 📦 Required Pipeline Files
+
+To run this application properly, ensure the following pipeline files are present in your project directory:
+
+- `model_ann.h5` (Trained ANN Model)
+- `tokenizer.pkl` (Tokenizer file)
+- `columns.pkl` (Data preprocessing layout)
+
+## 🚀 Getting Started
+
+1. Clone this repository.
+2. Place the required pipeline files (`model_ann.h5`, `tokenizer.pkl`, `columns.pkl`) in the root directory.
+3. Run the application script to start the local server.
+
+## Cloud Deployment
+
 ```bash
-git clone [https://github.com/amirsohail100/Synthetic-Food-Delivery-Transactions-Prediction.git](https://github.com/amirsohail100/Synthetic-Food-Delivery-Transactions-Prediction.git)
-cd Synthetic-Food-Delivery-Transactions-Prediction
+git clone https://github.com/amirsohail100/Synthetic-Food-Delivery-Transactions-Prediction.git
+````
+
+```bash
+cd AI-Fake-News-Detector
+```
+
+```bash
+streamlit run app.py
+```
+
+```bash
+python install -r requirements.txt
+```
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 📝 Author
+
+👤 **Amir Sohail**
 
 An end-to-end Machine Learning project analyzing synthetic food delivery transaction data. Evaluated custom ANN architectures vs traditional regression models (Gradient Boosting, AdaBoost, Random Forest). Achieved peak $R^2$ accuracy of ~0.678 through systematic tuning. Features saved artifacts (model.pkl, scaler.pkl, column.pkl) for deployment.
+
+```
 
 ```
 
