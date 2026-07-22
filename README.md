@@ -25,7 +25,41 @@ During the initial phase of this project, a major hurdle was encountered regardi
 
 ## 📁 Repository Structure
 
+```text
+Synthetic-Food-Delivery-Transactions-Prediction/
+├── synthetic_food_delivery_transactions.csv  # Synthetic dataset used for training
+├── model.ipynb                                # Jupyter Notebook with EDA, training & evaluation
+├── app.py                                     # Streamlit / Web application for model deployment
+├── model.pkl                                  # Best performing trained regression model
+├── scaler.pkl                                 # Scaler artifact for feature normalization
+├── columns.pkl                                # Saved feature list for inference alignment
+├── requirements.txt                           # Project dependencies
+└── README.md                                  # Documentation
+```
+
+---
+
+## 🛠️ Models & Performance Summary
+
+| Model / Architecture            | Peak Performance ($R^2$) |
+| :------------------------------ | :----------------------: |
+| **Tuned Ensemble Models / ANN** |        **~0.678**        |
+
+_Evaluated algorithms include Gradient Boosting Regressor, AdaBoost Regressor, Random Forest Regressor, and custom ANN structures._
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone [https://github.com/amirsohail100/Synthetic-Food-Delivery-Transactions-Prediction.git](https://github.com/amirsohail100/Synthetic-Food-Delivery-Transactions-Prediction.git)
+cd Synthetic-Food-Delivery-Transactions-Prediction
+
 An end-to-end Machine Learning project analyzing synthetic food delivery transaction data. Evaluated custom ANN architectures vs traditional regression models (Gradient Boosting, AdaBoost, Random Forest). Achieved peak $R^2$ accuracy of ~0.678 through systematic tuning. Features saved artifacts (model.pkl, scaler.pkl, column.pkl) for deployment.
+
+```
 
 ```
 
