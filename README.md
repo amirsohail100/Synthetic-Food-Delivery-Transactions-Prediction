@@ -1,53 +1,74 @@
-# Synthetic Food Delivery Transactions Rank Prediction
+# Synthetic Food Delivery Transactions Prediction
 
-An advanced Multi-Input Deep Learning project built using TensorFlow/Keras that combines text processing and numerical features to predict delivery transaction rankings.
-
----
-
-## 🌟 Overview
-
-This project processes synthetic food delivery transaction data using a multi-branch neural network architecture. By merging textual sequence features with numerical transactional attributes, the model provides accurate rank predictions to optimize food delivery operations and ranking algorithms.
+An end-to-end Machine Learning project analyzing synthetic food delivery transaction data. Evaluated custom ANN architectures vs. traditional regression models (Gradient Boosting, AdaBoost, Random Forest). Achieved a peak $R^2$ accuracy of **~0.678** through systematic tuning. Features saved artifacts (`model.pkl`, `scaler.pkl`, `columns.pkl`) for deployment.
 
 ---
 
-## 🏗️ Model Architecture
+## 🌟 Project Highlights
 
-The model utilizes a dual-branch neural network design to handle multi-modal tabular and text data:
+- **Comprehensive Evaluation**: Compared custom Artificial Neural Network (ANN) architectures against robust tree-based regression algorithms (Gradient Boosting, AdaBoost, Random Forest).
+- **Optimization & Tuning**: Hyperparameter tuning applied to maximize predictive accuracy ($R^2  pprox 0.678$).
+- **Deployment Ready**: Fully exported pipeline artifacts (`app.py`, `model.pkl`, `scaler.pkl`, `columns.pkl`) for real-time web inference.
 
-### 1. Text Feature Branch (`Text_Branch`)
+---
 
-- **Embedding Layer**: Converts text input sequences into dense vector representations.
-- **Stacked Bidirectional GRU Layers**:
-  - `Bidirectional(GRU(64, return_sequences=True))`
-  - `Dropout(0.3)`
-  - `Bidirectional(GRU(64, return_sequences=False))`
-  - `Dropout(0.2)`
-- **Dense Reduction Layers**: FC layers (`32`, `16`, `8` units with `ReLU`) to extract textual embeddings.
+## 📁 Repository Structure
 
-### 2. Numerical Feature Branch (`Numerical_Branch`)
+```
+Synthetic-Food-Delivery-Transactions-Prediction/
+├── synthetic_food_delivery_transactions.csv  # Synthetic dataset used for training
+├── model.ipynb                                # Jupyter Notebook with EDA, training & evaluation
+├── app.py                                     # Streamlit / Web application for model deployment
+├── model.pkl                                  # Best performing trained regression model
+├── scaler.pkl                                 # Scaler artifact for feature normalization
+├── columns.pkl                                # Saved feature list for inference alignment
+├── requirements.txt                           # Project dependencies
+└── README.md                                  # Documentation
+```
 
-- **Input**: 4 numerical features (`rating`, `variance`, `vote_count`, `year`).
-- **Dense Layers with Batch Normalization & Dropout**:
-  - `Dense(64)` -> `BatchNormalization` -> `Dropout(0.3)`
-  - `Dense(32)` -> `BatchNormalization` -> `Dropout(0.2)`
-  - `Dense(16)` -> `BatchNormalization`
-  - `Dense(8)`
+---
 
-### 3. Merged Output & Head
+## 🛠️ Models & Performance Summary
 
-- **Concatenation Layer**: Combines the 8-dimensional output vectors from both sub-models.
-- **Final Regression Head**:
-  - `Dense(16, activation="relu")`
-  - `Dropout(0.1)`
-  - `Dense(1, activation="linear", name="Rank_Output")`
+| Model / Architecture            | Peak Performance ($R^2$) |
+| :------------------------------ | :----------------------: |
+| **Tuned Ensemble Models / ANN** |        **~0.678**        |
 
-```python
-# Multi-Input Keras Architecture
-merged_outputs = Concatenate()([text_out, num_out])
-x = Dense(16, activation="relu")(merged_outputs)
-x = Dropout(0.1)(x)
-final_output = Dense(1, activation="linear", name="Rank_Output")(x)
+_Evaluated algorithms include Gradient Boosting Regressor, AdaBoost Regressor, Random Forest Regressor, and custom ANN structures._
 
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/amirsohail100/Synthetic-Food-Delivery-Transactions-Prediction.git
+cd Synthetic-Food-Delivery-Transactions-Prediction
+```
+
+### 2. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Run the Web App (`app.py`)
+
+```bash
+streamlit run app.py
+```
+
+---
+
+## 📊 Pipeline Workflow
+
+1. **Data Preprocessing**: Handling missing values, scaling numerical features via `scaler.pkl`.
+2. **Feature Alignment**: Using `columns.pkl` to maintain exact input column sequence during inference.
+3. **Model Inference**: Loading `model.pkl` to predict transaction values/ranks instantly via `app.py`.
 
 An end-to-end Machine Learning project analyzing synthetic food delivery transaction data. Evaluated custom ANN architectures vs traditional regression models (Gradient Boosting, AdaBoost, Random Forest). Achieved peak $R^2$ accuracy of ~0.678 through systematic tuning. Features saved artifacts (model.pkl, scaler.pkl, column.pkl) for deployment.
+
+```
+
 ```
