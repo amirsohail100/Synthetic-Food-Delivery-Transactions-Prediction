@@ -76,7 +76,7 @@ git clone https://github.com/amirsohail100/Synthetic-Food-Delivery-Transactions-
 ````
 
 ```bash
-cd AI-Fake-News-Detector
+cd Synthetic-Food-Delivery-Transactions-Prediction
 ```
 
 ```bash
