@@ -41,6 +41,7 @@ Synthetic-Food-Delivery-Transactions-Prediction/
 ├── scaler.pkl                                 # Scaler artifact for feature normalization
 ├── columns.pkl                                # Saved feature list for inference alignment
 ├── requirements.txt                           # Project dependencies
+├── UI.png                                     # Streamlit application UI
 └── README.md                                  # Documentation
 ```
 
