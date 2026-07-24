@@ -60,6 +60,8 @@ _Evaluated algorithms include Gradient Boosting Regressor, AdaBoost Regressor, R
 
 ### 1. Clone the Repository
 
+---
+
 ## 📦 Required Pipeline Files
 
 To run this application properly, ensure the following pipeline files are present in your project directory:
