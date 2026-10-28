@@ -25,22 +25,22 @@ def load_artifacts():
 
     # Try loading Model using joblib
     try:
-        model = joblib.load('model.pkl')
+        model = joblib.load('models/model.pkl')
     except Exception as e:
         errors.append(f"Model File (`model.pkl`) Error: {e}")
 
     # Try loading Scaler using joblib
     try:
-        scaler = joblib.load('scaler.pkl')
+        scaler = joblib.load('models/scaler.pkl')
     except Exception as e:
         errors.append(f"Scaler File (`scaler.pkl`) Error: {e}")
 
     # Try loading Column list using joblib
     try:
         try:
-            raw_cols = joblib.load('columns.pkl')
+            raw_cols = joblib.load('models/columns.pkl')
         except FileNotFoundError:
-            raw_cols = joblib.load('column.pkl')
+            raw_cols = joblib.load('models/column.pkl')
 
         # Clean type conversion
         if callable(raw_cols):
